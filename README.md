@@ -24,6 +24,9 @@ kubectl apply -f replicaset.yaml -n first-app
 
 # create pods with deployment
 kubectl apply -f deployment.yaml -n first-app
+
+# create the whole shebang
+kubectl apply -f k8s -n first-app
 ```
 
 ### DELETE
@@ -36,7 +39,7 @@ kubectl delete rs nginx -n first-app
 kubectl delete pod nginx -n first-app
 
 # delete cluster
-kubectl delete cluster -n my-first-cluster
+kind delete cluster --name my-first-cluster
 ```
 
 ### GET
@@ -57,6 +60,16 @@ kubectl port-forward pod/nginx -n first-app 8080:80
 
 # forward port from service
 kubectl port-forward svc/nginx-svc -n first-app 8080:80
+```
+
+### History & Rollback
+
+```sh
+# get deployment history
+kubectl rollout history deployment/app-ts -n first-app
+
+# rollback to the previous version (or use --to-revision to set a specific version to rollback)
+kubectl rollout undo deployment/app-ts -n first-app
 ```
 
 ## Docker Hub
